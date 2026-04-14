@@ -16,10 +16,14 @@
     <div class="page">
       <header class="header">
         <span class="logo" aria-hidden="true">◇</span>
-        <nav class="nav" aria-label="Primary">
-          <a href="#about">About</a>
-          <a href="#deploy">Deploy</a>
-        </nav>
+        <div class="header-right">
+          <nav class="nav" aria-label="Primary">
+            <a href="#about">About</a>
+            <a href="#deploy">Deploy</a>
+            <a href="#cognito">Auth</a>
+          </nav>
+          <div id="auth-nav" class="auth-nav" aria-live="polite"></div>
+        </div>
       </header>
 
       <main>
@@ -54,6 +58,8 @@
           <ul class="list">
             <li><code>index.html</code> — this page</li>
             <li><code>styles.css</code> — layout and theme</li>
+            <li><code>js/cognito-config.js</code> + <code>js/cognito-client.js</code> — Hosted UI + PKCE</li>
+            <li><code>callback.html</code> — OAuth redirect handler</li>
           </ul>
           <p class="muted">
             No build step required. Amplify can serve these files as-is from the
@@ -70,11 +76,54 @@
             <li>Save and deploy; your URL appears when the first build finishes.</li>
           </ol>
         </section>
+
+        <section id="cognito" class="panel">
+          <h2>Amazon Cognito (Hosted UI)</h2>
+          <p class="muted">
+            This site uses a <strong>User Pool</strong> app client (public, no secret) and the Hosted UI with
+            <strong>authorization code + PKCE</strong>. After you create resources in AWS, paste values into
+            <code>js/cognito-config.js</code> and redeploy.
+          </p>
+          <ol class="steps">
+            <li>
+              In <a href="https://console.aws.amazon.com/cognito/v2/idp/user-pools" target="_blank" rel="noopener noreferrer">Cognito</a>:
+              create a <strong>User pool</strong> (or use an existing one) with at least email sign-in.
+            </li>
+            <li>
+              Under <strong>App integration</strong> → <strong>Domain</strong>, set a Cognito domain prefix (e.g.
+              <code>myapp-auth</code>). That value is <code>domainPrefix</code> in config.
+            </li>
+            <li>
+              Under <strong>App clients</strong>, add a client: <strong>public</strong> (no secret), allowed flows:
+              <strong>Authorization code grant</strong>. OAuth 2.0 scopes: <code>openid</code>, <code>email</code>,
+              <code>profile</code>.
+            </li>
+            <li>
+              In the same app client, set <strong>Allowed callback URLs</strong> to your live
+              <code>callback.html</code> URL (example:
+              <code>https://main.d123.amplifyapp.com/callback.html</code>).
+            </li>
+            <li>
+              Set <strong>Allowed sign-out URLs</strong> to your site root (example:
+              <code>https://main.d123.amplifyapp.com/</code>) — must match <code>signOutRedirectUri</code> exactly.
+            </li>
+            <li>
+              Copy the app client id and region into <code>js/cognito-config.js</code>, push to GitHub, and test
+              <strong>Sign in</strong> in the header.
+            </li>
+          </ol>
+          <p class="muted">
+            For social IdPs (Google, etc.), add them under <strong>Sign-in experience</strong> →
+            <strong>Federated identity providers</strong>, then enable them on the Hosted UI. For API
+            authorization, use the access token with API Gateway Cognito authorizers or your backend.
+          </p>
+        </section>
       </main>
 
       <footer class="footer">
         <p>Made for static hosting. Edit <code>index.html</code> and refresh.</p>
       </footer>
     </div>
+    <script type="module" src="js/index-auth.js"></script>
   </body>
 </html>

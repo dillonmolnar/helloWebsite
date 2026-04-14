@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signing in…</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      body {
+        display: grid;
+        min-height: 100vh;
+        place-items: center;
+        margin: 0;
+      }
+      .box {
+        max-width: 28rem;
+        padding: 1.5rem;
+        text-align: center;
+      }
+      .box p {
+        color: var(--muted);
+        margin: 0.5rem 0 0;
+      }
+      .err {
+        color: #f0a0a0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <p id="status">Completing sign-in…</p>
+      <p id="detail" class="muted"></p>
+    </div>
+    <script type="module">
+      import { completeRedirectSignIn, isAuthConfigured } from "./js/cognito-client.js";
+
+      const status = document.getElementById("status");
+      const detail = document.getElementById("detail");
+
+      (async () => {
+        if (!isAuthConfigured()) {
+          status.textContent = "Cognito is not configured.";
+          detail.textContent = "Edit js/cognito-config.js, deploy, then try again.";
+          detail.classList.add("err");
+          return;
+        }
+        try {
+          await completeRedirectSignIn();
+        } catch (e) {
+          status.textContent = "Sign-in failed";
+          detail.textContent = e instanceof Error ? e.message : String(e);
+          detail.classList.add("err");
+        }
+      })();
+    </script>
+  </body>
+</html>
