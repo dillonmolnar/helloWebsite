@@ -4,8 +4,8 @@
  */
 export const cognitoConfig = {
   region: "us-east-1",
-  domainPrefix: "REPLACE_WITH_YOUR_COGNITO_DOMAIN_PREFIX",
-  clientId: "REPLACE_WITH_APP_CLIENT_ID",
+  domainPrefix: "us-east-1h1dnzi478",
+  clientId: "2sneebsg6a61gcss6ucq1rb7rh",
   redirectUri: "https://YOUR_AMPLIFY_OR_CUSTOM_DOMAIN/callback.html",
   signOutRedirectUri: "https://YOUR_AMPLIFY_OR_CUSTOM_DOMAIN/",
 };
