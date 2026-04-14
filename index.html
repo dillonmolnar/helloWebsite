@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hello · Static Site</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="header">
+        <span class="logo" aria-hidden="true">◇</span>
+        <nav class="nav" aria-label="Primary">
+          <a href="#about">About</a>
+          <a href="#deploy">Deploy</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero" aria-labelledby="hero-title">
+          <p class="eyebrow">Static site · GitHub · AWS</p>
+          <h1 id="hero-title" class="title">
+            A simple page,<br />
+            <em>ready to ship.</em>
+          </h1>
+          <p class="lede">
+            Push this folder to a GitHub repository, then connect the repo in
+            <strong>AWS Amplify Hosting</strong> for automatic deploys on every
+            push.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://github.com/new" target="_blank" rel="noopener noreferrer">
+              Create a repo
+            </a>
+            <a
+              class="btn btn-ghost"
+              href="https://console.aws.amazon.com/amplify/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open Amplify
+            </a>
+          </div>
+        </section>
+
+        <section id="about" class="panel">
+          <h2>What’s here</h2>
+          <ul class="list">
+            <li><code>index.html</code> — this page</li>
+            <li><code>styles.css</code> — layout and theme</li>
+          </ul>
+          <p class="muted">
+            No build step required. Amplify can serve these files as-is from the
+            repository root.
+          </p>
+        </section>
+
+        <section id="deploy" class="panel panel-accent">
+          <h2>Quick deploy checklist</h2>
+          <ol class="steps">
+            <li>Initialize git in this folder and push to GitHub.</li>
+            <li>In AWS Amplify: <strong>Host web app</strong> → connect GitHub.</li>
+            <li>Use the default build settings for a static site (or add a minimal <code>amplify.yml</code> if prompted).</li>
+            <li>Save and deploy; your URL appears when the first build finishes.</li>
+          </ol>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p>Made for static hosting. Edit <code>index.html</code> and refresh.</p>
+      </footer>
+    </div>
+  </body>
+</html>
