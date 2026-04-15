@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cognito OIDC Demo</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <main class="wrap">
+      <h1>Cognito sign-in</h1>
+
+      <div class="actions">
+        <div>
+          <button type="button" id="signIn">Sign In</button>
+        </div>
+        <div>
+          <button type="button" id="signOut">Log out</button>
+        </div>
+      </div>
+
+      <section class="tokens" aria-live="polite">
+        <p>Hello: <pre id="email"></pre></p>
+        <p>Access token: <pre id="access-token"></pre></p>
+        <p>ID token: <pre id="id-token"></pre></p>
+        <p>Refresh token: <pre id="refresh-token"></pre></p>
+      </section>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
